@@ -308,11 +308,8 @@ class AdminController < ApplicationController
   
   
   def lectures
-    
-      @normal_lectures = Lecture.find(:all, :include => :category, :order => "lecture_categories.title asc, lectures.title asc", :conditions => "selectable = 1")
-      @special_lectures = Lecture.find(:all, :include => :category, :order => "lecture_categories.title asc, lectures.title asc", :conditions => "selectable = 0")
-      
-  
+      @normal_lectures = Lecture.ordered.visibsle
+      @special_lectures = Lecture.ordered.invisible
   end
   
   def lecture_students
@@ -333,7 +330,7 @@ class AdminController < ApplicationController
     
     if params[:lecture]
       @lecture.update_attributes(params[:lecture])
-      @lecture.save
+      @lecture.save!
       
       flash[:message] = "Lecture saved!"
     end

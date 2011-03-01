@@ -3,8 +3,7 @@ class RegistrationController < ApplicationController
   before_filter :check_session_student, :except => [:index, :begin, :view_sessions]
   
   def view_sessions
-    @lectures = Lecture.find(:all, :include => :category, :order => "lecture_categories.title asc, lectures.title asc", :conditions => "selectable = 1")
-    
+    @lectures = Lecture.ordered.visible    
   end
   
   
@@ -54,7 +53,7 @@ class RegistrationController < ApplicationController
   def pick_sessions
     student = Student.find(session[:student_id])
     
-    @lectures = Lecture.find(:all, :include => :category, :order => "lecture_categories.title asc, lectures.title asc", :conditions => "selectable = 1")
+    @lectures = Lecture.ordered.visible
     @lectures = @lectures.reject{|x| !x.available_for_grade(student.grade)}
     
     if params[:lectures]

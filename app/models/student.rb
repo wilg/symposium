@@ -44,10 +44,10 @@ class Student < ActiveRecord::Base
     end
     
     number_imported = 0
-    text.chars.each_line{ |line|
+    text.each_line{ |line|
       # raise line
       
-      splits = line.strip.chars.split(delimiter)
+      splits = line.strip.split(delimiter)
       
       if splits.length >= 2
         student = Student.new()

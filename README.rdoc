@@ -9,7 +9,7 @@ Symposium was originally designed for a single-purpose use at Stevenson School (
 The code is not guaranteed to be very new or very good.
 
 === Requirements
-Rails 2.1.2
+Rails 2.3.8
 
 === License
 Copyright (C) 2011 Wil Gieseler

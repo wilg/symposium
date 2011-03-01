@@ -1,0 +1,20 @@
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+test:
+    adapter: mysql
+    database: xxxxx
+    username: xxxxx
+    password: xxxxx
+    host: xxxxx
+
+
+production:
+    adapter: mysql
+    database: xxxxx
+    username: xxxxx
+    password: xxxxx
+    host: xxxxx

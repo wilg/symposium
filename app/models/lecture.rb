@@ -6,6 +6,12 @@ class Lecture < ActiveRecord::Base
   has_many :sections, :dependent => :destroy
   
   
+  named_scope :visible, :conditions => {:selectable => true}
+  named_scope :invisible, :conditions => {:selectable => false}
+  
+  named_scope :ordered, {:include => :category, :order => "lecture_categories.title asc, lectures.title asc"}
+  
+  
   def category_name
     if self.category.nil?
       "---"
