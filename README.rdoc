@@ -1,12 +1,12 @@
-== Symposium
+= Symposium
 
 Symposium is a simple-to-use application to schedule groups of people for an event.
 
-= Notes
+=== Notes
 
 Symposium was originally designed for a single-purpose use at Stevenson School (http://stevensonschool.org/). As such, this application is provided as-is and may not be useful for your specific purpose. However, updates and patches are welcome.
 
 The code is not guaranteed to be very new or very good.
 
-= Requirements
+=== Requirements
 Rails 2.1.2
