@@ -6,13 +6,13 @@ Symposium is a simple-to-use application to schedule groups of people for an eve
 
 Symposium was originally designed for a single-purpose use at Stevenson School (http://stevensonschool.org/). As such, this application is provided as-is and may not be useful for your specific purpose. However, updates and patches are welcome.
 
-The code is not guaranteed to be very new or very good.
+This was created many moons ago, and it doesn't adhere to the proper RESTful architecture it should. There are no tests currently. Sorry about all that.
 
 === Requirements
 Rails 2.3.8
 
 === License
-Copyright (C) 2011 Wil Gieseler
+Copyright ©2008-2011 Wil Gieseler
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
