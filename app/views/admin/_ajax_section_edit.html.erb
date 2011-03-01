@@ -1,0 +1,5 @@
+<h3>Edit <q><%= section.lecture.title %></q></h3>
+<div class="dialog_body">
+<p><%= link_to "Remove From Group", {:action => "clear_section", :section => section.id}, :class => "cool_button" %></p>
+<p><strong>This action will desync schedules, you'll need to Autofill again.</strong></p>
+</div>

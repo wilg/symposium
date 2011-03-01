@@ -1,0 +1,431 @@
+/* @override http://localhost:3005/stylesheets/scheduler.css */
+
+body {
+	margin: 0;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	height: 100%;
+	background-color: #ecd8c4;
+}
+
+img {
+	vertical-align: bottom;
+}
+
+/* @group Links */
+
+a:link, a:visited {
+	color: #2146d8;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:active {
+	color: #967917;
+}
+
+a img {
+	border: none;
+}
+
+/* @end */
+
+div#toolbar {
+	background-color: #a46426;
+	position: fixed;
+	width: 100%;
+	height: 70px;
+	padding: 10px;
+	color: white;
+}
+
+div#header {
+	background-color: white;
+	width: 100%;
+	padding: 5px 5px 10px;
+	text-align: center;
+	font-size: 14px;
+	color: gray;
+	border-bottom: 1px solid #c8b7a6;
+	position: fixed;
+}
+
+.left {
+	float: left;
+	width: 50%;
+}
+
+.total_capacity {
+	/*width: 470px;*/
+	margin-top: 10px;
+}
+
+div#scroller {
+	padding-top: 105px;
+}
+
+div#scroller_content {
+	padding-right: 20px;
+}
+
+div.flash {
+	width: 50%;
+	text-align: center;
+	padding: 8px 10px;
+	color: #001d7e;
+	font-size: 21px;
+	font-weight: normal;
+	font-style: normal;
+	background: #78a2f8 url(/images/sheen.png) 0 center;
+	text-shadow: rgba(0,0,0,0.11) 1px 1px 1px;
+	border: 1px solid #6081c6;
+	margin: 20px auto 0;
+}
+
+a.small_button {
+	display: block;
+	padding: 5px;
+	font: bold 14px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	margin: 5px auto;
+	width: 108px;
+	color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background: #e1e1e1 url(/images/sheen.png) 0 center;
+	border: 1px solid #cbcbcb;
+	color: #9e6807;
+	text-align: left;
+}
+
+a.small_button:hover {
+	text-decoration: none;
+	background-color: #f0aa2e;
+	border-color: #d09327;
+	color: white;
+	text-shadow: rgba(0,0,0,0.2) 1px 1px 1px;
+}
+
+a.small_button:active {
+	text-decoration: none;
+	background-color: #9b2d19;
+	border-color: #722c1a;
+	color: white;
+	text-shadow: rgba(0,0,0,0.2) 1px 1px 1px;
+}
+
+a.small_button img {
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
+}
+
+/* @group Toolbar */
+
+#toolbar #logo {
+	float: left;
+	position: fixed;
+	left: 10px;
+}
+
+#toolbar_buttons {
+	float: right;
+	padding: 0;
+	width: 50%;
+}
+
+#toolbar_buttons .row {
+	display: block;
+	margin-top: 5px;
+	padding-right: 10px;
+}
+
+#toolbar_buttons .small_button {
+	float: right;
+	margin: 0 10px 7px 0;
+}
+
+#toolbar_buttons .small_button span {
+	position: relative;
+	bottom: 2px;
+}
+
+/* @end */
+
+/* @group Groups */
+
+.group {
+	background-color: white;
+	width: 250px;
+	padding-bottom: 10px;
+	margin: 15px 7px 10px;
+	-webkit-box-shadow: rgba(0,0,0,0.3) 1px 1px 4px;
+}
+
+.group h1 {
+	color: white;
+	font-size: 18px;
+	font-weight: normal;
+	font-style: normal;
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	background: #69390b url(/images/sheen.png) 0 center;
+	text-shadow: rgba(0,0,0,0.23) 1px 1px 1px;
+}
+
+.group h1 a {
+	color: white;
+}
+
+/* @end */
+
+.timeblock {
+	display: block;
+	padding: 10px;
+	font: normal 16px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	text-align: left;
+	border: 1px dashed #727272;
+	color: #727272;
+	margin: 8px 10px;
+}
+
+table tr {
+	vertical-align: top;
+}
+
+.restrictions {
+	background-color: #619130;
+	color: #e4fccf;
+	text-align: center;
+	padding: 5px;
+	font-size: 14px;
+}
+
+.restrictions.none {
+	background-color: transparent;
+	color: black;
+	text-align: center;
+	padding: 5px;
+	font-size: 14px;
+}
+
+.capacity {
+	text-align: center;
+	padding: 5px;
+	font-size: 14px;
+	margin-top: 6px;
+}
+
+.timeblock.permanent {
+	border-style: solid;
+	background-color: #e6e6e6;
+}
+
+.overflow, .overflow a {
+	background-color: #d40004;
+	color: white;
+}
+
+.underfilled, .underfilled a {
+	background-color: #f60;
+	color: white;
+}
+
+.timeblock.filled {
+	border-style: solid;
+	background-color: #fffaea;
+}
+
+.timeblock:hover {
+	border-style: solid;
+	border-color: #024c7f;
+	background-color: #8cc8ff;
+	color: black;
+}
+
+.timeblock .metadata {
+	font-size: 12px;
+	float: left;
+	text-align: left;
+}
+
+.timeblock .metadata .period {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.timeblock .metadata .time {
+	font-size: 11px;
+}
+
+.timeblock .title {
+	font-size: 14px;
+	margin: 0 0 0 5px;
+	text-align: right;
+}
+
+#edit_section_envelope {
+	font-size: 14px;
+	float: right;
+	font-weight: bold;
+	margin: 0 auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+	overflow: hidden;
+	background-image: url(/images/transparent_50.png);
+}
+
+#edit_section {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#edit_options {
+	height: 200px;
+	margin: 0 auto;
+	width: 400px;
+	text-align: center;
+	background-color: #e3f0fb;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-box-shadow: black 1px 1px 5px;
+	border: 3px solid #1166b1;
+	text-align: center;
+}
+
+#closebox {
+	display: block;
+	height: 32px;
+	margin: 0 auto;
+	width: 455px;
+	text-align: left;
+	position: relative;
+	top: 18px;
+}
+
+#edit_options p {
+	
+}
+
+#edit_section input[type=submit], a.cool_button {
+	color: white;
+	padding: 4px 10px;
+	-webkit-border-radius: 5px;
+	font: 16px "Helvetica Neue", "Helvetica", sans-serif;
+	border: 1px solid #0c4c86;
+	background: #1166b1 url(/images/sheen.png) 0 center;
+	text-shadow: rgba(0,0,0,0.25) 1px 1px 1px;
+	text-decoration: none;
+}
+
+#edit_section input[type=submit]:active,  a.cool_button:active {
+	background-color: #1892ff;
+	border-color: #1582e3;
+}
+
+#saving {
+	font-size: 14px;
+	float: right;
+	margin: 0 auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+	overflow: hidden;
+	background-image: url(/images/transparent_50.png);
+	text-align: center;
+}
+
+#saving_middle {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#saving_text {
+	-webkit-border-radius: 15px;
+	margin: 0 auto;
+	background-color: white;
+	padding: 20px;
+	width: 150px;
+	font-size: 28px;
+	-webkit-box-shadow: black 1px 1px 5px;
+}
+
+select {
+	font-size: 2em
+}
+
+h3 {
+	width: 80%;
+	margin: 0 auto 15px;
+	padding: 3px;
+	text-align: center;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 18px;
+	border-bottom: 1px solid #acb7d5;
+}
+
+h4 {
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 14px;
+	border-bottom: none;
+	padding: 0;
+}
+
+/* @group Clearfix */
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+/* @end */
+
+.dialog_body {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.info_box {
+	font: normal 14px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	text-align: left;
+	background: #e3eef6 url(/images/info.png) no-repeat 10px 7px;
+	border: 1px solid #96cced;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 14px 14px 14px 55px;
+	position: relative;
+	margin: 0;
+}

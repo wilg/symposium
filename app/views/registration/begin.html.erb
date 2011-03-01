@@ -1,0 +1,9 @@
+<%= page_title_with_h1 "Welcome" %>
+
+<div class="center_half">
+<div style="font-size:18px;"><%= settings_text_format(GlobalSettings.main.welcome_title) %></div>
+<%= settings_text_format(GlobalSettings.main.welcome_text) %>
+</div>
+<hr />
+
+<%= link_to image_tag("continue.jpg", :alt => "Continue"), :action => "pick_sessions" %>

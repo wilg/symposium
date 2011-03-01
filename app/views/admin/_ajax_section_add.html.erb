@@ -1,0 +1,9 @@
+<h3>Add a Breakout Session</h3>
+<div class="dialog_body">
+<h4>Timeblock <strong><%= Timeblock.find(params[:timeblock]).name %></strong> - <strong><%= Group.find(params[:group]).name %></strong></h4>
+<%= form_remote_tag :update => "the_scheduler", :complete => "hide_saving_box();", :before => "show_saving_box();", :url => {:controller => "admin", :action => "create_section", :group => params[:group], :timeblock => params[:timeblock]} %>
+<p><%= collection_select("section", "lecture_id", lectures, :id, :title, {:prompt => true}) %></p>
+<p><strong>This action will desync schedules, you'll need to Autofill again.</strong></p>
+<p><%= submit_tag "Add Session" %></p>
+</form>
+</div>

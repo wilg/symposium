@@ -1,0 +1,23 @@
+<%= page_title_with_h1 "Timeblocks" %>
+
+<a class="small_button" href="<%= url_for :action => "scheduler" %>"><%= image_tag "back.png" %><span>Scheduler</span></a>
+
+<div class="info_box">
+	Timeblocks let you set up the schedule for the event in whatever order you wish.
+</div>
+
+<%= form_tag :action => "timeblocks" %>
+<div class="timeblocks">
+<% for timeblock in @timeblocks %>
+	<div class="timeblock">
+		<p><%= text_field_tag "timeblocks[#{timeblock.id}][name]", timeblock.name, :class => "name" %> (<%= pretty_time timeblock.start_time %> - <%= pretty_time timeblock.end_time %>)</p>
+		<p>Length (in minutes): <%= text_field_tag "timeblocks[#{timeblock.id}][length]", timeblock.length, :class => "length" %></p>
+		<p>Order: <%= text_field_tag "timeblocks[#{timeblock.id}][order]", timeblock.order, :class => "order" %></p>
+		<p><%= check_box_tag "timeblocks[#{timeblock.id}][accepts_lecture]", 1, timeblock.accepts_lecture %> Sessions can occur during this timeblock</p>
+		<%= link_to "Delete", {:action => :delete_timeblock, :id => timeblock.id}, :confirm => "Really delete this timeblock?" %>
+	</div>
+<% end %>
+</div>
+<p><%= submit_tag "Save Timeblocks" %></p>
+<hr />
+<a class="small_button" href="<%= url_for :action => "new_timeblock" %>"><%= image_tag "new.png" %><span>New Timeblock</span></a>

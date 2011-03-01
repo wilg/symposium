@@ -1,0 +1,16 @@
+<%= page_title_with_h1 "Print Center" %>
+<%= render :partial => "back" %>
+
+<h2>Group Schedules</h2>
+<%= form_tag :action => "print_group_schedule" %>
+	<p><%= collection_select("group", nil, Group.find(:all), :id, :name, {:prompt => "Select a Group"}, :name => "group", :id => "group_schedule") %></p>
+	<p><%= submit_tag "Print Group Schedule" %></p>
+</form>
+<p><strong>or</strong> <%= link_to "Print All Group Schedules",  :action => "print_group_schedule", :all => true %></p>
+<hr />
+<h2>Group Members</h2>
+<%= form_tag :action => "print_group_students" %>
+	<p><%= collection_select("group", nil, Group.find(:all), :id, :name, {:prompt => "Select a Group"}, :name => "group", :id => "group_list") %></p>
+	<p><%= submit_tag "Print Group Members" %></p>
+</form>
+<p><strong>or</strong> <%= link_to "Print All Group Members",  :action => "print_group_students", :all => true %></p>

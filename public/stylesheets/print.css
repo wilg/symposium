@@ -1,0 +1,138 @@
+body {
+	background-color: white;
+	margin: 0;
+	text-align: center;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+h1 {
+	margin: 0;
+	padding: 10pt;
+	font: normal 28pt Georgia, "Times New Roman", Times, serif;
+	border-bottom: 1px solid gray;
+	text-align: center;
+}
+
+p.break {
+	page-break-after: always;
+}
+
+.print_footer {
+	width: 100%;
+	margin: 0;
+	padding: 5pt;
+	font: bold 14pt Georgia, "Times New Roman", Times, serif;
+	border-top: 1px solid gray;
+	text-align: center;
+}
+
+/* @group Students */
+
+.students {
+	
+}
+
+.column {
+	width: 50%;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+
+/* @end */
+
+/* @group Timeblocks
+ */
+
+.timeblocks {
+	width: 70%;
+	margin: 2em auto;
+}
+
+.timeblock {
+	display: block;
+	padding: 10px;
+	font: normal 18pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	-webkit-border-radius: 10px;
+	text-align: left;
+	border: 1px solid #727272;
+	color: black;
+	margin: 15px 10px;
+}
+
+.timeblock.permanent {
+	border-style: solid;
+	background-color: #e6e6e6;
+}
+
+.timeblock .metadata {
+	font-size: 12px;
+	float: left;
+	text-align: left;
+}
+
+.timeblock .metadata .period {
+	font-weight: bold;
+	font-size: 18pt;
+}
+
+.timeblock .metadata .time {
+	font-size: 12pt;
+}
+
+.timeblock .title {
+	font-size: 14pt;
+	margin: 0 0 0 5px;
+	text-align: right;
+}
+
+/* @end */
+
+/* @group Clearfix */
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+/* @end */
+
+@media screen {
+
+#print_screen {
+	display: block;
+	width: 50%;
+	margin: 10px auto;
+	background-color: #ffce27;
+	padding: 20px;
+}
+
+#print_screen p {
+	margin-bottom: 10px;
+}
+
+}
+
+@media print {
+
+#print_screen {
+	display: none;
+}
+
+}

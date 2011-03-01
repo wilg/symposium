@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="EN" />
+<% if @meta_description -%>
+	<meta name="description" content="<%= @meta_description %>" />
+<% end -%>
+	<title><%= get_page_title || APP_CONFIG["organization_name"] %></title>
+	<%= stylesheet_link_tag "symposium", :media => "all" %><% if @additional_stylesheets -%><% for stylesheet in @additional_stylesheets -%>
+	<%= stylesheet_link_tag stylesheet, :media => "all" %><% end %><% end %>
+	<% if @additional_javascripts %><% for script in @additional_javascripts %>
+	<%= javascript_include_tag script %><% end %><% end %>
+	<!--[if IE]>
+	<%= stylesheet_link_tag "internet_explorer_is_shit_and_we_all_know_it", :media => "all" %>
+	<![endif]-->
+</head>
+<body>
+	<div id="corset">
+		<div id="navbar"><%= link_to image_tag("stripe.jpg", :alt => APP_CONFIG["organization_name"]), header_link %></div>
+		<div id="main_content">
+			<% for name in [:notice, :warning, :message] -%>
+			<% if flash[name] -%>
+			<div class="flash <%= name -%> clearfix">
+				<%= flash[name] -%>
+			</div>
+			<% end -%>
+			<% end -%>
+			<%= yield %>
+		</div>
+	</div>
+	<div id="footer">
+		<span onclick="document.getElementById('show_admin_panel').style.display = 'inline'"><%= h(APP_CONFIG["footer_copyright"]) %> - </span> <%= link_to "Powered by Symposium", "http://github.com/supapuerco/symposium"%><span id="show_admin_panel" style="display:none"> - <%= link_to "Log In", :action => :index, :controller => :admin %></span>
+	</div>
+</body>
+</html>

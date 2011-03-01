@@ -1,0 +1,44 @@
+<%= page_title_with_h1 "Student List" %>
+
+<%= render :partial => "back" %>
+
+<div class="info_box">
+	Click on a name to see group assignments and options.
+</div>
+
+<% if not params[:collection] %>
+<div id="sort_options">
+	<p>Show only: <%= link_to "freshmen", :action => :students, :grade => "9" %>, <%= link_to "sophomores", :action => :students, :grade => "10" %>, <%= link_to "juniors", :action => :students, :grade => "11" %>, <%= link_to "seniors", :action => :students, :grade => "12" %><p>
+	<%= form_tag({ :action => "students"}, { :method => :get }) %>
+		Search Names: <%= text_field_tag "name", params[:name], {:id => "name", :type => "search"} %>
+	</form>
+</div>
+<% else %>
+	<h2>Students who <strong><%= params[:collection].humanize.downcase %></strong></h2>
+<% end %>
+
+<table id="pretty_table">
+	<tr>
+	  <td class="name header">
+		<%= link_to "Name", :action => :students, :sort => "name asc" %>
+		</td>
+	  <td class="grade header"><%= link_to "Grade", :action => :students, :sort => "grade desc" %></td>
+	  <td class="grouped header">grouped</td>
+	</tr>
+	<% i = 0  %><% for student in @students -%><% i += 1  -%>
+	<tr class="<% if i % 2 == 0 %>odd<% else %>even<% end %>">
+	  <td class="name">
+		<% if student.has_registered? %>
+		<%= link_to image_tag("green_circle.png", :width => 16, :height => 16), {:action => :edit_student, :sid => student.id} %>
+		<% else %>
+		<%= link_to image_tag("red_circle.png", :width => 16, :height => 16), {:action => :edit_student, :sid => student.id} %>
+		<% end %>
+		<% if student.name.blank? ; namething = "<em>No Name</em>" ; else ; namething = student.name ; end %>
+		<%= link_to namething, {:action => :edit_student, :sid => student.id} %></td>
+	  <td class="grade"><%= student.grade  %></td>
+	  <td class="grouped"><% if student.group %>&#10003;<% end %></td>
+	</tr>
+	<% end %>
+</table>
+
+<%= link_to "Download CSV of Students", :action => "students_csv", :controller => :admin, :extension => :csv %>

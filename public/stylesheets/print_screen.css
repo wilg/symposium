@@ -1,0 +1,6 @@
+#print_screen {
+	display: fixed;
+	width: 100%;
+	background-color: #ffce27;
+	padding: 20px;
+}

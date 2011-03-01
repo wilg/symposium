@@ -1,0 +1,4 @@
+<%= page_title_with_h1 "Destroy #{@student.name}"%>
+
+<p><strong><%= link_to "do it", :action => "destroy_student", :student => @student.id, :do_it => true %></strong></p>
+<p><strong><%= link_to "DON'T DO IT!", :action => "edit_student", :sid => @student.id %></strong></p>

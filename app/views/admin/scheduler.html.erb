@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Language" content="EN" />
+<% if @meta_description -%>
+	<meta name="description" content="<%= @meta_description %>" />
+<% end -%>
+	<title><%= get_page_title || "Scheduler" %></title>
+	<%= stylesheet_link_tag "scheduler", :media => "all" %>
+	<%= javascript_include_tag "prototype" %>
+	<%= javascript_include_tag "effects" %>
+	<%= javascript_include_tag "scheduler" %>
+	<!--[if IE]>
+	<%= stylesheet_link_tag "internet_explorer_is_shit_and_we_all_know_it", :media => "all" %>
+	<![endif]-->
+	<script type="text/javascript">
+		
+		setTimeout (function(){
+			$$(".flash_wrap").each(function(x){
+				new Effect.Fade(x, {duration:1.0});
+				new Effect.BlindUp(x, {duration:1.0});
+			});
+		}, 4000 );
+		
+		
+	</script>
+</head>
+<body>
+	<div id="header">
+		<div class="inner clearfix">
+		<div id="toolbar_buttons">
+			<div class="row clearfix">
+				<a class="small_button" href="#" onclick="show_edit_panel('<%= url_for :action => "schedule_statistics" %>');return false;"><%= image_tag "magnifying_glass.png" %><span>Statistics</span></a>
+
+				<a class="small_button" href="<%= url_for :action => "autofill", :sure => "sure" %>" onclick="return confirm('Are you sure you want to autofill schedules? This can\'t be undone and you\'ll have to wait a little while.');"><%= image_tag "yinyang.png" %><span>Autofill</span></a>
+			</div>
+			<div class="row clearfix">
+				<a class="small_button" href="<%= url_for :action => "groups" %>"><%= image_tag "users.png" %><span>Groups</span></a>
+
+				<a class="small_button" href="<%= url_for :action => "timeblocks" %>"><%= image_tag "clock.png" %><span>Timeblocks</span></a>
+
+				<a class="small_button" href="<%= url_for :action => "panel" %>"><%= image_tag "back.png" %><span>Back</span></a>
+			</div>
+		</div>
+		<div class="left">
+		<% if autofill_completed? %>
+		<div class="info_box">
+			Students have been autofilled into groups.<br />If you've changed soumething, you should <%= link_to "re-autofill", {:action => "autofill", :sure => "sure"}, :confirm => "Are you sure you want to autofill schedules? This can't be undone and you'll have to wait a little while." %>.
+		</div>
+		<% else %>
+		<div class="info_box warning">
+			When you're ready, <%= link_to "click here", {:action => "autofill", :sure => "sure"}, :confirm => "Are you sure you want to autofill schedules? This can't be undone and you'll have to wait a little while." %> to place students in groups based on their choices.
+		</div>
+		<% end %>
+		<% delta = Group.total_capacity - Student.count(:all) %>
+		<div class="total_capacity">grouped students <strong><%= Student.count(:conditions => "group_id is not null") %></strong> - total students <strong><%= Student.count(:all) %></strong> - total capacity <strong><%= Group.total_capacity %></strong> (<%= delta.abs %> <% if delta >=0 %>extra spaces<% else %>spaces needed<% end%>)</div>
+		</div>
+		</div>
+	</div>
+	<div id="scroller">
+		<div id="scroller_content">	
+			<% for name in [:notice, :warning, :message] -%>
+			<% if flash[name] -%>
+			<div class="flash_wrap">
+				<div class="flash <%= name -%> clearfix">
+					<%= flash[name] -%>
+				</div>
+			</div>
+			<% end -%>
+			<% end -%>
+		<div id="the_scheduler">
+			<%= render :partial => "scheduler_insert" %>
+		</div>
+		<div id="edit_section_envelope" style="display:none;">
+			<div id="edit_section">
+				<a href="#" id="closebox" onclick="hide_edit_panel();return false;"><%= image_tag "closebox.png", :alt => "Close" %></a>
+				<div id="edit_options">
+					<h3>Edit Timeblock</h3>
+				</div>
+			</div>
+		</div>
+		
+		<div id="saving" style="display:none">
+			<div id="saving_middle">
+				<div id="saving_text">
+					<%= image_tag "loading.gif"%><br />
+				saving...
+				</div>
+			</div>
+		</div>
+		
+		
+		</div>
+	</div>
+</body>
+</html>

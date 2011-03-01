@@ -1,0 +1,15 @@
+<%= page_title_with_h1 "Breakout Session Categoroies" %>
+<%= render :partial => "back" %>
+
+<ul class="categories"><% i = 1 %>
+<% for category in @categories %>
+<li class="<% if i % 2 == 0 %>odd<% end %>"><strong><%= category.title %></strong> <%= link_to "delete", :action => "delete_category", :cid => category.id%></li><% i = i + 1%>
+<% end %>
+</ul>
+
+<div class="category_form">
+<%= form_tag :action => "new_category", :controller => "admin" %>
+<label for="title">new category</label>
+<%= text_field_tag "title" %> <%= submit_tag "Create" %>
+</form>
+</div>

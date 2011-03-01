@@ -1,0 +1,66 @@
+<%= page_title_with_h1 "Breakout Session List" %>
+
+<%= render :partial => "back" %>
+<a class="small_button" href="<%= url_for :action => "new_lecture" %>"><%= image_tag "new.png" %><span>New Breakout Session</span></a>
+
+<div id="lectures_container" class="uneditable">
+	<div class="category" style="background-color:maroon">Special Periods</div>
+	<% for lecture in @special_lectures -%>
+	<div class="lecture" id="lecture_info_<%= lecture.id %>">
+		<div class="title"><%= lecture.title %></div>
+		<div class="description">
+			<div class="small_toolbar clearfix">
+			<a class="small_button" href="<%= url_for :action => :edit_lecture, :lid => lecture.id %>"><%= image_tag "edit.png" %><span> Edit Session</span></a>
+			</div>
+		</div>
+	</div>
+	
+	<% end %>
+	
+	
+	<% i = 0 ; last_category = nil %><% for lecture in @normal_lectures -%><% i += 1  -%>
+	<% if last_category != lecture.category_id %>
+	<div class="category"><%= lecture.category_name  %></div><% last_category = lecture.category_id %>
+	<% end %>
+	<div class="lecture <% if i % 2 == 0 %>odd<% else %>even<% end %>" id="lecture_info_<%= lecture.id %>">
+		<div class="title"><%= lecture.title %></div>
+		<div class="description">
+			<% if lecture.students_signed_up_count > 0%>
+			<div class="signup_status clearfix">
+				<div class="choice total">
+					<strong><%= lecture.students_signed_up_count %></strong>
+					Total
+				</div>
+				<div class="choice">
+					<strong><%= lecture.students_signed_up_count 1 %></strong>
+					First Choice
+				</div>
+				<div class="choice">
+					<strong><%= lecture.students_signed_up_count 2 %></strong>
+					Second Choice
+				</div>
+				<div class="choice">
+					<strong><%= lecture.students_signed_up_count 3 %></strong>
+					Third Choice
+				</div>
+				<div class="choice">
+					<strong><%= lecture.students_signed_up_count 4 %></strong>
+					Fourth Choice
+				</div>
+			</div>
+			<% else %>
+				<strong>Nobody signed up for this session.</strong>
+			<% end %>
+			
+			<div class="small_toolbar clearfix">
+			<a class="small_button" href="<%= url_for :action => :lecture_students, :lid => lecture.id %>"><%= image_tag "users.png" %><span> Students</span></a>
+			<a class="small_button" href="<%= url_for :action => :edit_lecture, :lid => lecture.id %>"><%= image_tag "edit.png" %><span> Edit Session</span></a>
+			</div>
+		</div>
+	</div>
+
+<% end %>
+</div>
+
+
+<div class="item_count"><%= @normal_lectures.length %> breakout sessions</div>

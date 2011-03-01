@@ -1,0 +1,23 @@
+<%= render :partial => "print_message" %>
+<% for group in @groups %>
+<h1><strong><%= group.name %></strong></h1>
+<%
+	students = group.students.find(:all, :order => "name asc")
+	group_1 = students[0..(group.students.length / 2 )]
+	group_2 = students[(group.students.length / 2 + 1)..group.students.length]
+
+-%>
+<div class="students clearfix">
+	<div class="column">
+	<% for student in group_1 %>
+	<p><%= student.name %></p>
+	<% end %>
+	</div>
+	<div class="column">
+	<% for student in group_2 %>
+	<p><%= student.name %></p>
+	<% end %>
+	</div>
+</div>
+<p class="break"></p>
+<% end %>

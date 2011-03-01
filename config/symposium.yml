@@ -1,0 +1,7 @@
+# Application Setup
+organization_name: YourOrg
+admin_password: nibbler
+
+# Templates
+# Please note, that according to the license you cannot remove the "Powered by Symposium" link at the bottom of the page.
+footer_copyright: "©2011 YourOrg"

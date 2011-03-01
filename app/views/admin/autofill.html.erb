@@ -1,0 +1,40 @@
+<%= page_title_with_h1 "Autofilling" %><% add_dependencies :js => 'prototype' %>
+
+<div id="autofill_in_progress">
+	<%= image_tag "loading.gif" %>
+	<div id="autofill_stats">Loading stats...</div>
+</div>
+
+<script type="text/javascript">
+
+	Event.observe(window, "load", check_stats)
+	
+	var iteration = 0;
+	
+	function check_stats() {
+		iteration++;
+		
+		var url = "<%= url_for :action => :autofill_progress %>";
+		
+		if (iteration > 3) {
+		 	url = "<%= url_for :action => :autofill_progress, :check_for_redirect => true %>";
+		}
+		
+		new Ajax.Request(url, {
+		  method: 'get',
+		  onSuccess: function(transport) {
+			var json = transport.responseText.evalJSON(true);
+			if (json["redirect_to"]) {
+				window.location = json["redirect_to"];
+			}
+			else if (json["stats"]) {
+				$("autofill_stats").innerHTML = json.stats;
+			}
+			setTimeout(check_stats, 2000);
+		  }
+		});
+		
+	}
+
+
+</script>

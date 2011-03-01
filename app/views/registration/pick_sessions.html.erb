@@ -1,0 +1,28 @@
+<%= page_title_with_h1 "Pick Breakout Sessions" %>
+<% add_dependencies :js => ["prototype", "pick_sessions"] %>
+
+<p>Pick the <strong>four</strong> sessions listed here that you are most interested in. The categories are for reference only, you may choose any four sessions you wish.</p>
+
+<%= form_tag({:action => "pick_sessions", :controller => "registration"}) %>
+
+<div id="lectures_container">
+	<% i = 0 ; last_category = nil %><% for lecture in @lectures -%><% i += 1  -%>
+	<% if GlobalSettings.main.show_categories and last_category != lecture.category_id %>
+	<div class="category"><%= lecture.category_name  %></div><% last_category = lecture.category_id %>
+	<% end %>
+	<div class="lecture <% if i % 2 == 0 %>odd<% else %>even<% end %>" id="lecture_info_<%= lecture.id %>"  onclick="click_header(<%= lecture.id %>);return false;">
+		<div class="title"><div class="checkbox">&nbsp;</div><%= lecture.title %></div>
+		<div class="description"><%= lecture.description  %></div>
+		<%= check_box_tag "lectures[]", lecture.id, false, :id => "checkbox_#{lecture.id}", :class => "actual_checkbox" %>
+	</div>
+	<% end %>
+</div>
+
+<hr />
+
+<p id="submit_button" style="display:none"><%= image_submit_tag "continue.jpg" %></p>
+<p id="submit_error">&nbsp;</p>
+<script type="text/javascript">count_checkboxes();</script>
+<script type="text/javascript">set_pickable_lectures(<%= Student.pickable_lectures %>);</script>
+
+</form>

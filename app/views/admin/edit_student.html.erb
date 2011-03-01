@@ -1,0 +1,52 @@
+<%= page_title_with_h1 "Edit Student - #{@student.name}" %>
+
+<% if params[:back_uri] && params[:back_title] %>
+<a class="small_button" href="<%= params[:back_uri] %>"><%= image_tag "back.png" %><span><%= params[:back_title] %></span></a>
+<a class="small_button" href="<%= url_for :action => "students" %>"><%= image_tag "users.png" %><span>Students</span></a>
+<% else %>
+<a class="small_button" href="<%= url_for :action => "students" %>"><%= image_tag "back.png" %><span>Students</span></a>
+<% end %>
+
+<hr />
+<% if @student.has_registered? %>
+	<%= image_tag "green_circle.png", :width => 16, :height => 16 %> <%= @student.name %> <strong>has registered</strong>!
+	<ol id="lectures_container" class="uneditable">
+	<% i = 0 %><% for lecture in @lectures -%><% i += 1  -%>
+		<li class="lecture <% if i % 2 == 0 %>odd<% else %>even<% end %>" id="lecture_info_<%= lecture.id %>">
+			<div class="title"><%= lecture.title %></div>
+			<div class="description"><% if @student.lecture_in_schedule?(lecture) %><%= image_tag "got_it.png", :style => "float:right" %><% end %><%= lecture.description  %></div>
+		</li>
+
+	<% end %>
+	</ol>
+	<div>
+		<a class="small_button" onclick="return confirm('Are you sure you want to clear this student\'s selections?');" href="<%= url_for :action => "clear_selections", :sid => @student.id %>"><%= image_tag "delete.png" %><span>Unregister</span></a>
+	</div>
+<% else %>
+	<%= image_tag "red_circle.png", :width => 16, :height => 16 %> <%= @student.name %> <strong>still needs to register</strong>!
+<% end %>
+<hr />
+<% if not @student.group.nil? %>
+	<%= image_tag "green_circle.png", :width => 16, :height => 16 %> <%= @student.name %> is in <%= link_to @student.group.name, :action => "group_students", :group=> @student.group.id %>!
+<% else %>
+	<%= image_tag "red_circle.png", :width => 16, :height => 16 %> <%= @student.name %> <strong>is not in any group</strong>!
+<% end %>
+
+
+<hr />
+
+<div class="bigform">
+    <% form_for :student, @student, :url => { :action => "edit_student", :sid => @student.id } do |s| %>
+	
+		<label for="name">name</label>
+		<%= s.text_field "name" %>
+		
+		<label for="grade">grade</label>
+		<%= s.text_field "grade" %>
+		
+		
+		<p><%= s.submit "Update Student" %></p>
+	<% end %>
+</div>
+
+<%= link_to "Delete this Student", {:action => "destroy_student", :student => @student.id}, :confirm => "Are you sure you want to delete #{@student.name}?" %>

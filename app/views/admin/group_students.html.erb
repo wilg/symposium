@@ -1,0 +1,41 @@
+<%= page_title_with_h1 "Students In Group &quot;#{@group.name}&quot;" %>
+
+<a class="small_button" href="<%= url_for :action => "scheduler" %>"><%= image_tag "back.png" %><span>Scheduler</span></a>
+<a class="small_button wider" href="<%= url_for :action => "print_group_schedule", :group => @group.id %>"><%= image_tag "print.png" %><span>Print Schedule</span></a>
+<a class="small_button wider" href="<%= url_for :action => "print_group_students", :group => @group.id %>"><%= image_tag "print.png" %><span>Print Students</span></a>
+
+<table id="pretty_table">
+	<tr>
+	  <td class="name header">
+		Name
+		</td>
+		<td class="grade header">Grade</td>
+	  <td class="grade header">Group Quality</td>
+	</tr>
+	<% i = 0  %><% for student in @students -%><% i += 1  -%>
+	<tr class="<% if i % 2 == 0 %>odd<% else %>even<% end %>">
+		<tr class="<% if i % 2 == 0 %>odd<% else %>even<% end %>">
+		  <td class="name">
+			<%= link_to student.name, {:action => :edit_student, :sid => student.id, :back_uri => request.request_uri, :back_title => @group.name} %></td>
+			<td class="grade">
+				<%= student.grade %>
+			</td>
+		  <td class="grade">
+			<% case student.group_quality; when 1 %>
+			<%= image_tag "green_circle.png", :width => 16, :height => 16 %> First Choice
+			<% when 2 %>
+			<%= image_tag "blue_circle.png", :width => 16, :height => 16 %> Second Choice
+			<% when 3 %>
+			<%= image_tag "orange_circle.png", :width => 16, :height => 16 %> Third Choice
+			<% when 4 %>
+			<%= image_tag "red_circle.png", :width => 16, :height => 16 %> Fourth Choice
+			<% when 15 %>
+			<%= image_tag "black_circle.png", :width => 16, :height => 16 %> Did Not Choose
+			<% when 20 %>
+			<%= image_tag "black_circle.png", :width => 16, :height => 16 %><%= image_tag "black_circle.png", :width => 16, :height => 16 %> Made selections, but got the shaft
+			<% end %>
+			</td>
+		</tr>
+	</tr>
+	<% end %>
+</table>

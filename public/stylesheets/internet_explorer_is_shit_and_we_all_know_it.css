@@ -1,0 +1,15 @@
+#sortable_list li {
+	list-style-type: none;
+}
+
+.bigform input#name {
+	font: 48px Georgia, "Times New Roman", Times, serif;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+#lectures_container.uneditable li {
+	list-style-type: none;
+}

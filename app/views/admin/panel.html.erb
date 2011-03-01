@@ -1,0 +1,57 @@
+<%= page_title_with_h1 "Admin Panel" %>
+<div class="clearfix">
+<div class="steps">
+	<p>Here's what you need to do:</p>
+	<ol>
+		<li class="<% if Student.count(:all) > 1 %>complete<% end %>"><%= link_to "Import Student Information", :action => "import"  %></li>
+		<li class="<% if LectureCategory.count(:all) > 1 %>complete<% end %>"><%= link_to "Add Session Categories", :action => "categories" %></li>
+		<li class="<% if Lecture.count(:all) > 1 %>complete<% end %>"><%= link_to "Add Sessions", :action => "lectures" %></li>
+		<li class="<% if GlobalSettings.main.allow_signup %>complete<% end %>"><%= link_to "Open Registration",  :action => "settings" %></li>
+		<li class="<% if Timeblock.count(:all) > 3 %>complete<% end %>"><%= link_to "Set Up Schedule Timeblocks", :action => :timeblocks %></li>
+		<li class="<% if Group.count(:all) > 3 %>complete<% end %>"><%= link_to "Set Up Groups", :action => :groups %></li>
+		<li class="<% if Section.count(:all) > 10 %>complete<% end %>"><%= link_to "Create Schedule", :action => :scheduler  %></li>
+		<li class="<% if autofill_completed? %>complete<% end %>"><%= link_to "Autofill Students", :action => :scheduler  %></li>
+		<li><%= link_to "Print Schedules", :action => :print_center %></li>
+	</ol>
+</div>
+
+<div class="more_options clearfix">
+
+	<a class="admin_button" href="<%= url_for :action => "students" %>"><%= image_tag "users.png" %> <strong>Student List</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "lectures" %>"><%= image_tag "star.png" %> <strong>Session List</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "scheduler" %>"><%= image_tag "clock.png" %> <strong>Scheduler</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "categories" %>"><%= image_tag "categories.png" %> <strong>Edit Categories</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "print_center" %>"><%= image_tag "print.png" %> <strong>Print Center</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "import" %>"><%= image_tag "import_csv.png" %> <strong>Import CSV</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "logout" %>"><%= image_tag "log_out.png" %> <strong>Log Out</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "settings" %>"><%= image_tag "preferences.png" %> <strong>Settings</strong></a>
+	<a class="admin_button" href="<%= url_for :action => "reset" %>"><%= image_tag "nuke.png" %> <strong>Reset Everything</strong></a>
+</div>
+</div>
+<hr />
+
+<div class="statistic clearfix">
+	<%= image_tag "green_circle.png" %>
+	<div class="number"><%= Student.have_registered.length %></div>
+	<%= link_to "Registered Students", :action => "students", :collection => "have_registered" %>
+</div>
+
+<div class="statistic clearfix">
+	<%= image_tag "red_circle.png" %>
+	<div class="number"><%= Student.count() - Student.have_registered.length %></div>
+	<%= link_to "Unregistered Students", :action => "students", :collection => "have_not_registered" %>
+</div>
+<br />
+<% picks = Pick.find(:all, :limit => 16, :order => "id desc")
+	students = []
+	for pick in picks
+		students << Student.find(pick.student_id)
+	end
+	students.uniq!
+
+ %>
+<strong>Recently Registered:</strong>
+<% for student in students %> <%= link_to student.name, :action => "edit_student", :sid => student.id %> - <% end %> etc.
+<br />
+&nbsp;
+<p style="font-size:10px"><strong>Technical jazz:</strong> Rails <%= Rails::VERSION::STRING %> - Ruby <%= RUBY_VERSION %> - <%= ENV["RAILS_ENV"]%> environment</p>

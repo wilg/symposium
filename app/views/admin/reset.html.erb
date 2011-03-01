@@ -1,0 +1,26 @@
+<%= page_title_with_h1 "Reset Everything" %>
+
+<%= render :partial => "back" %>
+<div class="center_half">
+	<div style="text-align:left;">
+		<p>You are about to <strong>reset the entire site</strong>! This will:</p>
+		<ul>
+			<li>Erase all students</li>
+			<li>Erase all breakout sessions</li>
+			<li>Erase all categories</li>
+			<li>Erase all scheduling information</li>
+		</ul>
+		<p>This <strong>cannot be undone</strong>! Make sure you are super positive this is what you want!</p>
+		<hr />
+		<%= form_tag :action => "reset", :controller => :admin %>
+		<p><strong>Reset the entire site</strong>?</p>
+			<ul>
+				<li><%= check_box_tag "checkbox_1", 1, false %> I am positive.</li>
+				<li><%= check_box_tag "checkbox_2", 1, false %> I am double positive.</li>
+				<li><%= check_box_tag "checkbox_3", 1, false %> I am triple positive.</li>
+				<li>This is the admin password: <%= password_field_tag "password" %>.</li>
+			</ul>
+			<%= submit_tag "Nuke It" %>
+		</form>
+	</div>
+</div>

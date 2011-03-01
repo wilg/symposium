@@ -1,0 +1,32 @@
+<%= page_title_with_h1 "Students Who Want &quot;#{@lecture.title}&quot;" %>
+
+<a class="small_button" href="<%= url_for :action => "lectures" %>"><%= image_tag "back.png" %><span>Sessions</span></a>
+
+<table id="pretty_table">
+	<tr>
+	  <td class="name header">
+		Name
+		</td>
+	  <td class="grade header">Priority</td>
+	</tr>
+	<% i = 0  %><% for student in @students -%><% i += 1  -%>
+	<% pick = student.picks.find(:first, :conditions => ["lecture_id = ?", @lecture.id]) %>
+	<tr class="<% if i % 2 == 0 %>odd<% else %>even<% end %>">
+	  <td class="name">
+		<%= link_to student.name, {:action => :edit_student, :sid => student.id, :back_uri => request.request_uri, :back_title => @lecture.title} %></td>
+	  <td class="grade">
+		<% case pick.sort; when 1 %>
+		<%= image_tag "green_circle.png", :width => 16, :height => 16 %>
+		<% when 2 %>
+		<%= image_tag "blue_circle.png", :width => 16, :height => 16 %>
+		<% when 3 %>
+		<%= image_tag "orange_circle.png", :width => 16, :height => 16 %>
+		<% when 4 %>
+		<%= image_tag "red_circle.png", :width => 16, :height => 16 %>
+		<% end %>
+		
+		<strong><%= pick.sort  %></strong>
+		</td>
+	</tr>
+	<% end %>
+</table>

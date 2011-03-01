@@ -1,0 +1,21 @@
+<%= page_title_with_h1 "Groups" %>
+
+<a class="small_button" href="<%= url_for :action => "scheduler" %>"><%= image_tag "back.png" %><span>Scheduler</span></a>
+
+<div class="info_box">
+	Students will be assigned a group and travel with them to the different breakout sessions.
+</div>
+
+<%= form_tag :action => "groups" %>
+<div class="groups">
+<% for group in @groups %>
+	<div class="group">
+		<p><%= text_field_tag "groups[#{group.id}][name]", group.name, :class => "name" %></p>
+		<p>Capacity: <%= text_field_tag "groups[#{group.id}][capacity]", group.capacity, :class => "capacity" %>students</p>
+		<%= link_to "Delete", {:action => :delete_group, :id => group.id}, :confirm => "Really delete this group?" %>
+	</div>
+<% end %>
+</div>
+<p><%= submit_tag "Save Groups" %></p>
+<hr />
+<a class="small_button" href="<%= url_for :action => "new_group" %>"><%= image_tag "new.png" %><span>New Group</span></a>

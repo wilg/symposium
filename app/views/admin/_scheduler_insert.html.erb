@@ -1,0 +1,18 @@
+<table>
+<tr><% timeblocks = Timeblock.time_ordered %>
+<% for group in Group.find(:all) %>
+<td><% restrictions = group.grade_restriction ; student_count = group.students.count(:all) %>
+	<div class="group">
+		<h1><%= link_to group.name, :action => "group_students", :group => group.id %></h1>
+		<div class="capacity<% if group.capacity < student_count %> overflow<% end %><% if student_count <  group.capacity %> underfilled<% end %>"><%= link_to "#{student_count} members", :action => "group_students", :group => group.id %> - <%= group.capacity %> spaces </div>
+		<% if restrictions %><div class="restrictions">available only to grade<% if group.grade_restriction.length != 1 %>s<% end %> <strong><%= group.grade_restriction * ", " %></strong></div><% else %><div class="restrictions none">available to everyone</div><% end %>
+		<div class="timeblocks">
+			<% for timeblock in timeblocks %>
+				<%= render :partial => "timeblock", :locals => {:timeblock => timeblock, :group => group}%>
+			<% end %>
+		</div>
+	</div>
+</td>
+<% end %>
+</tr>
+</table>

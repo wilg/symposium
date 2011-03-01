@@ -1,0 +1,28 @@
+<%= render :partial => "print_message" %>
+<% for group in @groups %>
+<h1><strong><%= group.name %></strong></h1>
+<div class="timeblocks">
+	<% for timeblock in @timeblocks %>
+	<% section = Section.t_g(timeblock, group)%>
+	<% if section.nil? %>
+	<div class="timeblock <% if !timeblock.accepts_lecture %>permanent<% end %> clearfix" onclick="show_edit_panel('<%= url_for :action => "ajax_section_add", :controller => "admin", :timeblock => timeblock.id, :group => group.id %>')">
+		<div class="metadata">
+			<div class="period"><%= timeblock.name %></div>
+			<div class="time"><%= pretty_time timeblock.start_time %> - <%= pretty_time timeblock.end_time %></div>
+		</div>
+		<div class="title"><% if timeblock.accepts_lecture %>?<% end %></div>
+	</div>
+	<% else %>
+	<% lecture = section.lecture %>
+	<div class="timeblock filled clearfix <% if !timeblock.accepts_lecture %>permanent<% end %>" onclick="show_edit_panel('<%= url_for :action => "ajax_section_edit", :controller => "admin", :section => section.id %>')">
+		<div class="metadata">
+			<div class="period"><%= timeblock.name %></div>
+			<div class="time"><%= pretty_time timeblock.start_time %> - <%= pretty_time timeblock.end_time %></div>
+		</div>
+		<div class="title"><strong><%= lecture.title %></strong><% if !lecture.room.blank? %><br /> <%= lecture.room %><% end %></div>
+	</div>
+	<% end %>
+	<% end %>
+</div>
+<p class="break"></p>
+<% end %>

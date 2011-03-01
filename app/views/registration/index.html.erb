@@ -1,0 +1,20 @@
+<% if GlobalSettings.main.allow_signup %>
+<h1>Register for Symposium</h1>
+
+<div class="bigform">
+	<%= form_tag :action => "begin", :controller => "registration" %>
+	
+		<label for="name">enter your name</label>
+		<%= text_field_tag "name", nil, {:id => "name"} %>
+		
+		<p><%= image_submit_tag "continue.jpg" %></p>
+	</form>
+</div>
+<em>or</em><br /><%= link_to "View Available Sessions", :action => "view_sessions" %>
+<% else %>
+<h1>Symposium Registration Closed</h1>
+<div class="center_half">
+<p style="font-size:18px;"><%= GlobalSettings.main.registration_closed %></p>
+<p style="font-size:18px;">You can <%= link_to "view the available breakout sessions", :action => "view_sessions" %> if you want.</p>
+</div>
+<% end %>

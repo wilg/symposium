@@ -1,0 +1,14 @@
+<%= page_title_with_h1 "Admin Login" %>
+
+<p><%= image_tag "lock.png" %></p>
+<p><em class="super">Please make sure you are using Safari or Firefox.</em></p>
+<div class="bigform">
+<%= form_tag :action => "login", :controller => "admin" %>
+
+
+	<label for="name">password</label>
+	<%= password_field_tag "password", nil, {:id => "password"} %>
+	
+	<p><%= image_submit_tag "continue.jpg" %></p>
+</form>
+</div>

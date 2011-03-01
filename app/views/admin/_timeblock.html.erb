@@ -1,0 +1,19 @@
+<% section = Section.t_g(timeblock, group) %>
+<% if section.nil? %> <!-- # empty timeblock  -->
+<div class="timeblock <% if timeblock && !timeblock.accepts_lecture %>permanent<% end %> clearfix" onclick="show_edit_panel('<%= url_for :action => "ajax_section_add", :controller => "admin", :timeblock => timeblock.id, :group => group.id %>')">
+	<div class="metadata">
+		<div class="period"><%= timeblock.name %></div>
+		<div class="time"><%= pretty_time timeblock.start_time %> - <%= pretty_time timeblock.end_time %></div>
+	</div>
+	<div class="title"><% if timeblock.accepts_lecture %>?<% end %></div>
+</div>
+<% else %> <!-- # timeblock with a lecture in it  -->
+<% lecture = section.lecture %>
+<div class="timeblock filled clearfix" onclick="show_edit_panel('<%= url_for :action => "ajax_section_edit", :controller => "admin", :section => section.id %>')">
+	<div class="metadata">
+		<div class="period"><%= timeblock.name %></div>
+		<div class="time"><%= pretty_time timeblock.start_time %> - <%= pretty_time timeblock.end_time %><% if !lecture.room.blank? %> - <strong><%= lecture.room %></strong><% end %></div>
+	</div>
+	<div class="title"><%= lecture.title %></div>
+</div>
+<% end %>

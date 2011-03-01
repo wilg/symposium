@@ -1,0 +1,28 @@
+<%= page_title_with_h1 "Sort Breakout Sessions" %>
+<% add_dependencies :js => ["prototype", "scriptaculous", "order_sessions"] %>
+
+<p><strong>Drag</strong> the breakout sessions into the order you most prefer, with your favorite at the top.</p>
+
+<%= form_tag({:action => "order_sessions", :controller => "registration"}, :onsubmit => "order_submit();") %>
+
+<ol id="sortable_list">
+<% i = 0 %><% for lecture in @lectures -%><% i += 1  -%>
+  <li class="lecture_name item_<%= i %>" id="lecture_<%= lecture.id %>"><div><%= lecture.title %></div></li>
+<% end %>
+</ol>
+
+<script type="text/javascript">
+// <![CDATA[
+  Sortable.create("sortable_list",
+    {dropOnEmpty:true,containment:["sortable_list"],constraint:false});
+// ]]>
+</script>
+<span style="display:none">
+	<a href="#" onclick="order_submit(); return false;">check</a>
+	<% i = 0 %><% for lecture in @lectures -%><% i += 1  -%>
+	<%= text_field_tag "ordered_lectures[#{lecture.id}]", i, :id => "lecture_#{lecture.id}_field" %>
+	<% end %>
+</span>
+<hr />
+<p id="submit_button"><%= link_to image_tag("go_back.jpg"), :action => "pick_sessions" %> <%= image_submit_tag "continue.jpg" %></p>
+</form>

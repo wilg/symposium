@@ -1,0 +1,39 @@
+<%= page_title_with_h1 "Edit Breakout Session - #{@lecture.title}" %>
+
+
+<a class="small_button" href="<%= url_for :action => "lectures" %>"><%= image_tag "back.png" %><span>Sessions</span></a>
+<div class="nice_form">
+    <% form_for :lecture, @lecture, :url => { :action => "edit_lecture", :lid => @lecture.id } do |s| %>
+	
+		<label for="title">title</label>
+		<%= s.text_field "title" %>
+		
+		<label for="presenter">presenter (not shown to students)</label>
+		<%= s.text_field "presenter" %>
+		
+		<label for="description">description</label>
+		<%= s.text_area "description", :rows => 6 %>
+		
+		<hr />
+		<label for="category">category</label>
+		<%= collection_select("lecture", "category_id", LectureCategory.find(:all), :id, :title, {:prompt => true}) %>
+	  
+		<hr />
+		<label for="room">room name</label>
+		<%= s.text_field "room" %>
+	
+		<hr />
+		<label for="only_grades">only for grades (blank for all, example: &quot;9, 10&quot;)</label>
+		<%= s.text_field "only_grades" %>
+	
+		<p><label for="only_grades">breakout session visible to students</label>
+		<%= s.check_box "selectable" %></p>
+		<hr />
+	
+		<p><%= link_to "Delete This Session", {:action => :delete_lecture, :lid => @lecture.id}, :confirm => "Are you sure you want to delete this breakout section?" %></p>
+		
+		<p><%= s.submit "Save" %></p>
+	<% end %>
+</div>
+
+

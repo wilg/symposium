@@ -1,0 +1,48 @@
+<%= page_title_with_h1 "Settings" %>
+
+<%= render :partial => "back" %>
+
+<%= form_tag :action => "settings" %>
+	
+	<h2><strong>Welcome Page</strong></h2>
+	<em>Use %name to place the student's name and %grade to place their grade.</em>
+	
+	<p>
+	<label for="name">Welcome Page Greeting</label><br />
+	<%= text_area_tag "welcome_title", @settings.welcome_title, :rows => 5, :cols => 60 %>
+	</p>
+	
+	<p>
+	<label for="name">Welcome Page Text</label><br />
+	<%= text_area_tag "welcome_text", @settings.welcome_text, :rows => 5, :cols => 60 %>
+	</p>
+	<hr />
+	
+	<h2><strong>Error Messages</strong></h2>
+	
+	<p>
+	<label for="name">Signup Closed Message</label><br />
+	<%= text_area_tag "registration_closed", @settings.registration_closed, :rows => 5, :cols => 60 %>
+	</p>
+	
+	
+	<hr />
+	
+	
+	<h2><strong>Signup Options</strong></h2>
+	<p>
+	<%= check_box_tag "allow_signup", 1, GlobalSettings.main.allow_signup %>
+	<label for="name">Registration open</label>
+	</p>
+	<p>
+	<%= check_box_tag "allow_change_mind", 1, GlobalSettings.main.allow_change_mind %>
+	<label for="name">People can change registrations</label>
+	</p>
+	<p>
+	<%= check_box_tag "show_categories", 1, GlobalSettings.main.show_categories %>
+	<label for="name">Use categories</label>
+	</p>
+	<hr />
+	
+	<p><%= submit_tag "Save Settings" %></p>
+</form>

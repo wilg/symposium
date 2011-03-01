@@ -1,0 +1,10 @@
+<h3>Statistics</q></h3>
+<div class="dialog_body">
+	<p><strong><%= ((@registered_students.to_f / @total_students.to_f) * 100.0).round %>%</strong> of students registered</p>
+	<% if @registered_students > 0 %>
+	<p><strong><%= ((@first_choice_students.to_f / @registered_students.to_f) * 100.0).round %>%</strong> of those got their first choice</p>
+	<p><strong><%= ((@second_choice_students.to_f / @registered_students.to_f) * 100.0).round %>%</strong> got their second choice</p>
+	<p><strong><%= ((@third_choice_students.to_f / @registered_students.to_f) * 100.0).round %>%</strong> got their third choice</p>
+	<p><strong><%= ((@fourth_choice_students.to_f / @registered_students.to_f) * 100.0).round %>%</strong> got their fourth choice</p>
+	<% end %>
+</div>

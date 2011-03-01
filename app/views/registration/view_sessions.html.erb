@@ -1,0 +1,13 @@
+<%= page_title_with_h1 "Available Breakout Sessions" %>
+
+<div id="lectures_container" class="uneditable">
+	<% i = 0 ; last_category = nil %><% for lecture in @lectures -%><% i += 1  -%>
+	<% if GlobalSettings.main.show_categories and last_category != lecture.category_id %>
+	<div class="category"><%= lecture.category_name  %></div><% last_category = lecture.category_id %>
+	<% end %>
+	<div class="lecture <% if i % 2 == 0 %>odd<% else %>even<% end %>" id="lecture_info_<%= lecture.id %>"  onclick="click_header(<%= lecture.id %>);return false;">
+		<div class="title"><%= lecture.title %></div>
+		<div class="description"><%= lecture.description  %></div>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,21 @@
+<%= page_title_with_h1 "Import Students" %>
+<%= render :partial => "back" %>
+<div class="center_half">
+  <%= form_tag({ :action => "import"}, { :multipart => true }) %>
+	<div style="text-align:left;">
+		<p class="description">Import either a <strong>.csv</strong> or tab-delimited <strong>.txt</strong> file.</p>
+		<p class="description">This is usually exported from a two-column Excel document.</p>
+		
+		<em>The file should have columns for the following:</em><ol><li>Grade as a number</li><li>Full name</li></ol>Like this:<br />
+<pre><code>12,John Doe
+11,Wil Gieseler
+9,Tom Cruise</pre></code>
+		<br />
+		<%= file_field_tag "upload" %>
+	</div>
+	<hr />
+	<p>
+    	<%= submit_tag "Import" %>
+	</p>
+</form>
+</div>
